@@ -24,12 +24,11 @@ def create_app(config_name):
     db.init_app(app)
     login_manager.init_app(app)
 
-    from app.controller.main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
+    from app.controller.home import home as home_blueprint
+    app.register_blueprint(home_blueprint)
 
-    # from .auth import auth as auth_blueprint
-    # app.register_blueprint(auth_blueprint, url_prefix='/auth')
-
+    from app.controller.admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint)
 
     @app.errorhandler(403)
     def forbidden(e):
