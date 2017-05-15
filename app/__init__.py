@@ -1,7 +1,7 @@
 # coding: utf-8
-from flask import Flask
+from flask import Flask,current_app
 from flask_mail import Mail
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy,get_debug_queries
 from flask_login import LoginManager
 from config import config
 import datetime
@@ -29,6 +29,16 @@ def create_app(config_name):
 
     from app.controller.admin import admin as admin_blueprint
     app.register_blueprint(admin_blueprint)
+
+    @app.after_request
+    def after_request(response):
+        for query in get_debug_queries():
+            if query.duration >= current_app.config['FLASKY_SLOW_DB_QUERY_TIME']:
+                current_app.logger.warning(
+                    'Slow query: %s\nParameters: %s\nDuration: %fs\nContext: %s\n'
+                    % (query.statement, query.parameters, query.duration,
+                       query.context))
+        return response
 
     @app.errorhandler(403)
     def forbidden(e):
