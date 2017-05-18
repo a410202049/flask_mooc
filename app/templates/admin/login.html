@@ -1,0 +1,68 @@
+{% extends "admin/index.html" %}
+{% block title %}后台登陆{% endblock %}
+{% block body_class %}{% endblock %}
+{% block wrapper %}
+
+        <div class="account-pages"></div>
+        <div class="clearfix"></div>
+        <div class="wrapper-page">
+            <div class=" card-box">
+            <div class="panel-heading"> 
+                <h3 class="text-center"> Sign In to <strong class="text-custom">Mooc</strong> </h3>
+            </div> 
+
+
+            <div class="panel-body">
+            {% from "macros.html" import msg_alert,render_field %}
+            <form class="form-horizontal m-t-20" method="post" role="form">
+                {{form.hidden_tag()}}
+{#                {{ msg_alert(form.errors,'alert-danger') }}#}
+                {{ msg_alert(get_flashed_messages(),'alert-danger') }}
+
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        {{ render_field(form.username,placeholder="Username")}}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        {{ render_field(form.password,placeholder="Password")}}
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <div class="checkbox checkbox-primary">
+                            {{ form.remember_me(id="checkbox-signup") }}
+                            {{ form.remember_me.label(for="checkbox-signup") }}
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="form-group text-center m-t-40">
+                    <div class="col-xs-12">
+                        {{ form.submit(class="btn btn-pink btn-block text-uppercase waves-effect waves-light") }}
+                    </div>
+                </div>
+
+                <div class="form-group m-t-30 m-b-0">
+                    <div class="col-sm-12">
+                        <a href="#" class="text-dark"><i class="fa fa-lock m-r-5"></i> Forgot your password?</a>
+                    </div>
+                </div>
+            </form> 
+            
+            </div>   
+            </div>                              
+                <div class="row">
+                <div class="col-sm-12 text-center">
+                    <p>Don't have an account? <a href="#" class="text-primary m-l-5"><b>Sign Up</b></a></p>
+                        
+                    </div>
+            </div>
+            
+        </div>
+        
+{% endblock %}
