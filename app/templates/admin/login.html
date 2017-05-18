@@ -16,7 +16,6 @@
             {% from "macros.html" import msg_alert,render_field %}
             <form class="form-horizontal m-t-20" method="post" role="form">
                 {{form.hidden_tag()}}
-{#                {{ msg_alert(form.errors,'alert-danger') }}#}
                 {{ msg_alert(get_flashed_messages(),'alert-danger') }}
 
                 <div class="form-group ">
