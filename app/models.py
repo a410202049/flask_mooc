@@ -115,7 +115,8 @@ class User(UserMixin, db.Model):
 
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        #打印对象所有属性和值
+        return '<User>\n'+'\n'.join(['%s:%s' % item for item in self.__dict__.items()])
 
 
 
