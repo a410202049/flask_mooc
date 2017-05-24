@@ -2,7 +2,7 @@
 __author__ = 'kerry'
 
 from app import db
-from flask_login import UserMixin
+from flask_login import UserMixin,AnonymousUserMixin
 from app import login_manager
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -26,6 +26,11 @@ class User(UserMixin, db.Model):
     status = db.Column(db.Boolean, default=True)
     confirmed = db.Column(db.Boolean, default=False)
     nickname = db.Column(db.String(64))
+    # 用于外键的字段
+    group_id = db.Column(db.Integer, db.ForeignKey('users_group.id'))
+    group = db.relationship('UsersGroup', backref=db.backref('get_users', lazy='dynamic'))
+    create_time = db.Column(db.DateTime, default=datetime.now)
+    update_time = db.Column(db.DateTime, default=datetime.now ,onupdate=datetime.now)
 
     @property
     def password(self):
@@ -117,6 +122,53 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         #打印对象所有属性和值
         return '<User>\n'+'\n'.join(['%s:%s' % item for item in self.__dict__.items()])
+
+
+class AnonymousUser(AnonymousUserMixin):
+    pass
+
+class UsersGroup(db.Model):
+    __tablename__ = 'users_group'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    status = db.Column(db.Boolean, default=True)
+    rules = db.Column(db.Text())
+    description = db.Column(db.Text())
+    create_time = db.Column(db.DateTime, default=datetime.now)
+    update_time = db.Column(db.DateTime, default=datetime.now ,onupdate=datetime.now)
+
+    # @staticmethod
+    # def insert_roles():
+    #     roles = {
+    #         'User': (Permission.FOLLOW |
+    #                  Permission.COMMENT |
+    #                  Permission.WRITE_ARTICLES, True),
+    #         'Moderator': (Permission.FOLLOW |
+    #                       Permission.COMMENT |
+    #                       Permission.WRITE_ARTICLES |
+    #                       Permission.MODERATE_COMMENTS, False),
+    #         'Administrator': (0xff, False)
+    #     }
+    #     for r in roles:
+    #         role = Role.query.filter_by(name=r).first()
+    #         if role is None:
+    #             role = Role(name=r)
+    #         role.permissions = roles[r][0]
+    #         role.default = roles[r][1]
+    #         db.session.add(role)
+    #     db.session.commit()
+
+    def __repr__(self):
+        return '<UsersGroup>\n' + '\n'.join(['%s:%s' % item for item in self.__dict__.items()])
+
+class MenuAuth(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    parent = db.Column(db.Integer,default=0)
+    name = db.Column(db.String(20))
+    controller  = db.Column(db.String(20))
+    method = db.Column(db.String(100))
+    sort = db.Column(db.Integer, default=0)
+    icon = db.Column(db.String(30))
 
 
 
