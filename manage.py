@@ -5,7 +5,7 @@ import os
 from app import create_app, db
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
-from app.models import User,UsersGroup
+from app.models import User,UsersGroup,MenuAuth
 
 
 app = create_app('default')
@@ -14,7 +14,7 @@ migrate = Migrate(app=app, db=db)
 
 
 def make_shell_context():
-    return dict(app=app, db=db,User=User,UsersGroup=UsersGroup)
+    return dict(app=app, db=db,User=User,UsersGroup=UsersGroup,MenuAuth=MenuAuth)
 
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)

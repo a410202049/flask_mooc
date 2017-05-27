@@ -132,32 +132,17 @@
       <div id="sidebar-menu">
         <ul>
           <li class="text-muted menu-title">基础导航</li>
-          <li class="has_sub"> <a href="#" class="waves-effect"><i class="ti-home"></i> <span> 系统管理 </span> </a>
-            <ul class="list-unstyled">
-              <li><a href="index.html">站点设置</a></li>
-              <li><a href="dashboard_2.html">用户管理</a></li>
-              <li><a href="dashboard_3.html">角色分组</a></li>
-            </ul>
-          </li>
-
-
-          <li class="has_sub"> <a href="#" class="waves-effect"><i class="ti-pencil-alt"></i><span> 文章管理 </span></a>
-            <ul class="list-unstyled">
-              <li><a href="form-elements.html">General Elements</a></li>
-              <li><a href="form-advanced.html">Advanced Form</a></li>
-              <li><a href="form-validation.html">Form Validation</a></li>
-              <li><a href="form-pickers.html">Form Pickers</a></li>
-              <li><a href="form-wizard.html">Form Wizard</a></li>
-              <li><a href="form-mask.html">Form Masks</a></li>
-              <li><a href="form-summernote.html">Summernote</a></li>
-              <li><a href="form-wysiwig.html">Wysiwig Editors</a></li>
-              <li><a href="form-uploads.html">Multiple File Upload</a></li>
-              <li><a href="form-xeditable.html">X-editable</a></li>
-              <li><a href="form-image-crop.html">Image Crop</a></li>
-            </ul>
-          </li>
-          
-
+            {% for menu in menus %}
+              <li {% if menu.child %}class="has_sub"{% endif %}> <a href="{% if menu.method %}{{('admin/'~menu.method)}}{% else %}javascript:void(0);{% endif %}" class="waves-effect"><i class="{{ menu.icon }}"></i> <span> {{ menu.name }} </span> </a>
+                  {% if menu.child %}
+                  <ul class="list-unstyled">
+                      {% for m in menu.child %}
+                        <li><a href="{{ m.method }}">{{ m.name }}</a></li>
+                      {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            {% endfor %}
         </ul>
         <div class="clearfix"></div>
       </div>

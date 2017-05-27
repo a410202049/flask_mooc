@@ -14,7 +14,6 @@ import hashlib
 def load_user(user_id):
     return User.query.get(user_id)
 
-
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -29,6 +28,8 @@ class User(UserMixin, db.Model):
     # 用于外键的字段
     group_id = db.Column(db.Integer, db.ForeignKey('users_group.id'))
     group = db.relationship('UsersGroup', backref=db.backref('get_users', lazy='dynamic'))
+    #管理员和普通用户 1管理员 0普通用户
+    is_manage = db.Column(db.Enum("1","0"),default="0")
     create_time = db.Column(db.DateTime, default=datetime.now)
     update_time = db.Column(db.DateTime, default=datetime.now ,onupdate=datetime.now)
 
@@ -165,12 +166,15 @@ class MenuAuth(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     parent = db.Column(db.Integer,default=0)
     name = db.Column(db.String(20))
-    controller  = db.Column(db.String(20))
-    method = db.Column(db.String(100))
+    method  = db.Column(db.String(20))
+    grant = db.Column(db.String(100))
     sort = db.Column(db.Integer, default=0)
     icon = db.Column(db.String(30))
+    create_time = db.Column(db.DateTime, default=datetime.now)
+    update_time = db.Column(db.DateTime, default=datetime.now ,onupdate=datetime.now)
 
-
+    def __repr__(self):
+        return '<MenuAuth>\n' + '\n'.join(['%s:%s' % item for item in self.__dict__.items()])
 
 
 
