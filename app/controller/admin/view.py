@@ -1,10 +1,12 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
-from app.models import MenuAuth
-
-class base(object):
-    def __init__(self):
-        self.menus = []
-        menus = MenuAuth.query.first()
+from app.controller.admin import admin
+from flask import render_template
+from flask_login import login_required
+@admin.route('/dashboard', methods=['GET', 'POST'])
+@login_required
+def dashboard():
+    print '11111111'
+    return render_template('admin/dashboard.html')
 
 
