@@ -135,7 +135,7 @@
         <ul>
           <li class="text-muted menu-title">基础导航</li>
             {% for menu in menus %}
-              <li {% if menu.child %}class="has_sub"{% endif %}> <a class="J_menuItem" href="{% if menu.method %}{{('admin/'~menu.method)}}{% else %}javascript:void(0);{% endif %}" class="waves-effect"><i class="{{ menu.icon }}"></i> <span> {{ menu.name }} </span> </a>
+              <li {% if menu.child %}class="has_sub"{% endif %}> <a {% if menu.method %}class="J_menuItem"{% endif %} href="{% if menu.method %}{{('admin/'~menu.method)}}{% else %}javascript:void(0);{% endif %}" class="waves-effect"><i class="{{ menu.icon }}"></i> <span> {{ menu.name }} </span> </a>
                   {% if menu.child %}
                   <ul class="list-unstyled">
                       {% for m in menu.child %}
