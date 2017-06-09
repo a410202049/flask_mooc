@@ -10,7 +10,7 @@ from flask import render_template, request, jsonify
 mail = Mail()
 db = SQLAlchemy()
 login_manager = LoginManager()
-login_manager.session_protection = 'strong'
+login_manager.session_protection = 'basic'
 login_manager.login_view = 'admin.login'
 login_manager.login_message = u"请先登陆账号"
 
