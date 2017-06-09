@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>树表控件</title>
+        <link href="style/demo.css" rel="stylesheet" type="text/css" />
+        <style type="text/css">
+        table,td,th {  border: 1px solid #8DB9DB; padding:5px; border-collapse: collapse; font-size:16px; }
+        </style>
+
+        <!--引用的文件 Begin-->
+        <script type="text/javascript" src="../script/jquery.js"></script>
+        <script src="../script/treeTable/jquery.treeTable.js" type="text/javascript"></script>
+        <!--引用的文件 End-->
+        <script type="text/javascript">
+        $(function(){
+            var option = {
+                theme:'vsStyle',
+                expandLevel : 1,
+                onSelect : function($treeTable, id) {
+                    window.console && console.log('onSelect:' + id);
+                    
+                }
+
+            };
+            $('#treeTable1').treeTable(option);
+
+        });
+        </script>
+    </head>
+    <body>
+    <div id="page">
+        <h1><span>treeTable <em>v 1.4.2</em></span></h1>
+
+        <fieldset>
+            <legend>演示</legend>
+            <table id="treeTable1" style="width:100%">
+                <tr>
+                    <td style="width:200px;">标题</td>
+                    <td>内容</td>
+                </tr>
+                <tr id="1">
+                    <td><span controller="true">1</span></td>
+                    <td>内容</td></tr>
+                <tr id="2" pId="1">
+                    <td controller="true">2</td>
+                    <td>内容</td></tr>
+                <tr id="4" pId="2">
+                    <td>4</td>
+                    <td>445454</td>
+                </tr>
+                <tr id="3" pId="1">
+                    <td>3</td>
+                    <td>内容</td>
+                </tr>
+            </table>
+
+        </fieldset>
+
+
+    </div>
+    </body>
+</html>

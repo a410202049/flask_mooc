@@ -10,3 +10,9 @@ def dashboard():
     return render_template('admin/dashboard.html')
 
 
+@admin.route('/auth-menu', methods=['GET', 'POST'])
+@login_required
+def auth_menu():
+    return render_template('admin/auth_menu.html')
+
+
