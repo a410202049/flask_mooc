@@ -16,5 +16,7 @@ pip freeze >requirements.txt 导出所有依赖
 
 pip install -r requirements.txt 安装所有依赖
 
+User.query.filter_by(user='fake_name').update({'password':'test'})
+
 
 
